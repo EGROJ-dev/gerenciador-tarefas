@@ -94,6 +94,14 @@ form > button {
 @media (prefers-color-scheme: dark) { form > button { color: #0b1220; } }
 form > button:hover { filter: brightness(1.08); }
 
+form > button.secundario {
+  color: var(--tinta);
+  background: transparent;
+  border: 1px solid var(--linha);
+}
+form > button.secundario:hover { filter: none; border-color: var(--suave); }
+form > button[hidden] { display: none; }
+
 .erro { grid-column: 1 / -1; margin: 0; min-height: 1.2em; font-size: .9rem; color: var(--alta); }
 
 /* ---------- filtros ---------- */
@@ -139,6 +147,11 @@ li input[type="checkbox"] { width: 1.3rem; height: 1.3rem; accent-color: var(--d
 li.feita .titulo { text-decoration: line-through; color: var(--suave); font-weight: 400; }
 li.feita { opacity: .75; }
 
+.acoes { display: flex; gap: .4rem; }
+
+li.editando { outline: 2px solid var(--destaque); outline-offset: 2px; }
+
+.editar,
 .remover {
   padding: .35rem .7rem;
   color: var(--suave);
@@ -147,6 +160,7 @@ li.feita { opacity: .75; }
   border-radius: 8px;
   cursor: pointer;
 }
+.editar:hover { color: var(--destaque); border-color: var(--destaque); }
 .remover:hover { color: var(--alta); border-color: var(--alta); }
 
 .vazio { padding: 2rem 0; text-align: center; color: var(--suave); }
