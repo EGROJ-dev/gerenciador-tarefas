@@ -99,4 +99,6 @@ Distribuído sob a licença MIT. Veja o arquivo [LICENSE](LICENSE).
 
 ## Como contribuir
 
+
 Sugestões são muito bem-vindas! Abra uma issue ou envie um Pull Request
+
