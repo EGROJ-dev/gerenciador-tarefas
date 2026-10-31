@@ -5,10 +5,10 @@ import java.time.LocalDate;
 public class Tarefa {
 
     private final int id;
-    private final String titulo;
-    private final Prioridade prioridade;
+    private String titulo;
+    private Prioridade prioridade;
     private final LocalDate criadaEm;
-    private final LocalDate prazo; // pode ser null
+    private LocalDate prazo; // pode ser null
     private boolean concluida;
 
     public Tarefa(int id, String titulo, Prioridade prioridade,
@@ -29,6 +29,12 @@ public class Tarefa {
     public boolean isConcluida() { return concluida; }
 
     public void concluir() { this.concluida = true; }
+
+    public void editar(String titulo, Prioridade prioridade, LocalDate prazo) {
+        this.titulo = titulo;
+        this.prioridade = prioridade;
+        this.prazo = prazo;
+    }
 
     public boolean estaAtrasada(LocalDate hoje) {
         return !concluida && prazo != null && prazo.isBefore(hoje);

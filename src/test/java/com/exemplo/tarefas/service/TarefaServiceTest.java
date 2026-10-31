@@ -89,4 +89,52 @@ class TarefaServiceTest {
         TarefaService s = new TarefaService(repo, Clock.fixed(Instant.parse("2026-10-30T12:00:00Z"), ZoneOffset.UTC));
         assertEquals(1, s.listarAtrasadas().size());
     }
+    @Test
+    void editarAlteraTituloPrioridadeEPrazoEPersiste() {
+        Tarefa t = service.adicionar("Estudar", Prioridade.BAIXA, null);
+        service.editar(t.getId(), "  Estudar Java  ", Prioridade.ALTA, HOJE.plusDays(3));
+
+        Tarefa salva = repo.dados.get(0);
+        assertEquals("Estudar Java", salva.getTitulo());
+        assertEquals(Prioridade.ALTA, salva.getPrioridade());
+        assertEquals(HOJE.plusDays(3), salva.getPrazo());
+    }
+
+    @Test
+    void editarRejeitaTituloVazio() {
+        Tarefa t = service.adicionar("Estudar", Prioridade.MEDIA, null);
+        assertThrows(IllegalArgumentException.class,
+                () -> service.editar(t.getId(), " ", Prioridade.MEDIA, null));
+    }
+
+    @Test
+    void editarRejeitaNovoPrazoNoPassado() {
+        Tarefa t = service.adicionar("Estudar", Prioridade.MEDIA, null);
+        assertThrows(IllegalArgumentException.class,
+                () -> service.editar(t.getId(), "Estudar", Prioridade.MEDIA, HOJE.minusDays(1)));
+    }
+
+    @Test
+    void editarPermiteManterPrazoQueJaEstavaAtrasado() {
+        Tarefa velha = new Tarefa(1, "velha", Prioridade.MEDIA, HOJE.minusDays(10), HOJE.minusDays(2), false);
+        repo.dados.add(velha);
+        TarefaService s = new TarefaService(repo, Clock.fixed(Instant.parse("2026-10-30T12:00:00Z"), ZoneOffset.UTC));
+
+        s.editar(1, "velha renomeada", Prioridade.ALTA, HOJE.minusDays(2));
+
+        assertEquals("velha renomeada", repo.dados.get(0).getTitulo());
+    }
+
+    @Test
+    void editarPermiteRemoverPrazo() {
+        Tarefa t = service.adicionar("Estudar", Prioridade.MEDIA, HOJE.plusDays(5));
+        service.editar(t.getId(), "Estudar", Prioridade.MEDIA, null);
+        assertNull(repo.dados.get(0).getPrazo());
+    }
+
+    @Test
+    void editarTarefaInexistenteLancaExcecao() {
+        assertThrows(TarefaNaoEncontradaException.class,
+                () -> service.editar(42, "x", Prioridade.BAIXA, null));
+    }
 }
