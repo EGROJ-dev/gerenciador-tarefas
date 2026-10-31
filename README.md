@@ -96,3 +96,7 @@ Abra `docs/index.html` no navegador, ou acesse o link no topo deste README. As t
 ## Licença
 
 Distribuído sob a licença MIT. Veja o arquivo [LICENSE](LICENSE).
+
+## Como contribuir
+
+Sugestões e melhorias são bem-vindas. Abra uma issue ou envie um Pull Request
