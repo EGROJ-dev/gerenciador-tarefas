@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciador de Tarefas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Minhas tarefas</h1>
+      <p id="resumo" aria-live="polite"></p>
+    </header>
+
+    <form id="form" novalidate>
+      <label class="campo grande">
+        <span>O que precisa ser feito?</span>
+        <input id="titulo" type="text" maxlength="120" autocomplete="off" required>
+      </label>
+      <label class="campo">
+        <span>Prioridade</span>
+        <select id="prioridade">
+          <option value="baixa">Baixa</option>
+          <option value="media" selected>Média</option>
+          <option value="alta">Alta</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Prazo (opcional)</span>
+        <input id="prazo" type="date">
+      </label>
+      <button type="submit">Adicionar tarefa</button>
+      <p id="erro" class="erro" role="alert"></p>
+    </form>
+
+    <nav class="filtros" aria-label="Filtrar tarefas">
+      <button type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+      <button type="button" data-filtro="pendentes" aria-pressed="false">Pendentes</button>
+      <button type="button" data-filtro="atrasadas" aria-pressed="false">Atrasadas</button>
+    </nav>
+
+    <ul id="lista"></ul>
+    <p id="vazio" class="vazio" hidden></p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
