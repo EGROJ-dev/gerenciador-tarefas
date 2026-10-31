@@ -33,6 +33,7 @@ public class Menu {
                     case "3" -> imprimirLista(service.listarAtrasadas());
                     case "4" -> { service.concluir(lerInt("ID da tarefa: ")); System.out.println("Concluída!"); }
                     case "5" -> { service.remover(lerInt("ID da tarefa: ")); System.out.println("Removida!"); }
+                    case "6" -> editar();
                     case "0" -> rodando = false;
                     default -> System.out.println("Opção inválida.");
                 }
@@ -52,6 +53,7 @@ public class Menu {
                 3) Listar atrasadas
                 4) Concluir tarefa
                 5) Remover tarefa
+                6) Editar tarefa
                 0) Sair""");
         System.out.print("> ");
     }
@@ -73,6 +75,38 @@ public class Menu {
         }
         Tarefa t = service.adicionar(titulo, prioridade, prazo);
         System.out.println("Tarefa #" + t.getId() + " criada.");
+    }
+
+    private void editar() {
+        Tarefa atual = service.buscar(lerInt("ID da tarefa: "));
+        System.out.println("Deixe em branco para manter o valor atual.");
+
+        System.out.print("Título [" + atual.getTitulo() + "]: ");
+        String titulo = entrada.nextLine();
+        if (titulo.isBlank()) {
+            titulo = atual.getTitulo();
+        }
+
+        System.out.print("Prioridade (1-baixa, 2-média, 3-alta) [" + atual.getPrioridade() + "]: ");
+        String textoPrioridade = entrada.nextLine();
+        Prioridade prioridade = textoPrioridade.isBlank() ? atual.getPrioridade() : Prioridade.de(textoPrioridade);
+
+        String prazoAtual = atual.getPrazo() == null ? "nenhum" : atual.getPrazo().format(FORMATO);
+        System.out.print("Prazo (dd/MM/yyyy, '-' para remover) [" + prazoAtual + "]: ");
+        String textoPrazo = entrada.nextLine().trim();
+        LocalDate prazo = atual.getPrazo();
+        if (textoPrazo.equals("-")) {
+            prazo = null;
+        } else if (!textoPrazo.isEmpty()) {
+            try {
+                prazo = LocalDate.parse(textoPrazo, FORMATO);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Data inválida. Use dd/MM/yyyy.");
+            }
+        }
+
+        service.editar(atual.getId(), titulo, prioridade, prazo);
+        System.out.println("Tarefa #" + atual.getId() + " atualizada.");
     }
 
     private int lerInt(String mensagem) {

@@ -36,6 +36,26 @@ public class TarefaService {
         return tarefa;
     }
 
+    /**
+     * Altera título, prioridade e prazo de uma tarefa existente.
+     * Manter um prazo que já estava no passado é permitido (tarefa atrasada);
+     * só é recusado escolher um prazo novo que esteja no passado.
+     */
+    public Tarefa editar(int id, String titulo, Prioridade prioridade, LocalDate prazo) {
+        if (titulo == null || titulo.isBlank()) {
+            throw new IllegalArgumentException("O título não pode ser vazio.");
+        }
+        Tarefa tarefa = buscar(id);
+        LocalDate hoje = LocalDate.now(relogio);
+        boolean prazoMudou = prazo != null && !prazo.equals(tarefa.getPrazo());
+        if (prazoMudou && prazo.isBefore(hoje)) {
+            throw new IllegalArgumentException("O prazo não pode estar no passado.");
+        }
+        tarefa.editar(titulo.trim(), prioridade, prazo);
+        repositorio.gravar(tarefas);
+        return tarefa;
+    }
+
     public void concluir(int id) {
         buscar(id).concluir();
         repositorio.gravar(tarefas);

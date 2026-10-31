@@ -83,7 +83,7 @@ Abra `docs/index.html` no navegador, ou acesse o link no topo deste README. As t
 
 ## Próximos passos
 
-- [ ] Editar tarefas existentes
+- [x] Editar tarefas existentes
 - [ ] Filtrar por prioridade na versão Java
 - [ ] Trocar o arquivo TSV por JSON ou SQLite
 - [ ] Transformar em API REST com Spring Boot e conectar à versão web
