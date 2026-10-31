@@ -8,9 +8,9 @@ Gerenciador de tarefas com prioridades e prazos, feito em **Java 17** (linha de 
 
 🔗 **Teste a versão web:** https://egroj-dev.github.io/gerenciador-tarefas/
 
-<!--
+
 ![Versão web do gerenciador de tarefas](docs/screenshot.png)
--->
+
 
 ## Funcionalidades
 
