@@ -1,6 +1,6 @@
 # 📝 Gerenciador de Tarefas (CLI)
 
-![CI](https://github.com/SEU-USUARIO/gerenciador-tarefas/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/EGROJ-dev/gerenciador-tarefas/actions/workflows/ci.yml/badge.svg)
 
 Aplicação de linha de comando em **Java 17** para gerenciar tarefas, com prioridades, prazos e persistência em arquivo. Feita sem frameworks, só Java puro + JUnit 5, como projeto de estudo de arquitetura em camadas.
 
