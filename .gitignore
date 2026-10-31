@@ -1,2 +1,7 @@
-.env
-node_modules/
+target/
+*.class
+*.log
+.idea/
+*.iml
+.vscode/
+.DS_Store
